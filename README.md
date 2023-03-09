@@ -1,1 +1,4 @@
-Read me
+# artsdata-satellite-minter
+Artsdata Minter
+=============
+
