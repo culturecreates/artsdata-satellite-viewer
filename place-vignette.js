@@ -1,13 +1,13 @@
-class PeopleVignette extends HTMLElement {
+class PlaceVignette extends HTMLElement {
   set entity(entity) {
     this.innerHTML = `
       <div  class="list-group">
         <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
           <div class="ms-2 me-auto">
             <div class="fw-bold">${encodeHTMLEntities(
-              truncate(entity.name.fr || entity.name.en || entity.name["@none"] + " (missing lang)" || "")
+              truncate(entity.name.fr || entity.name.en)
             )}</div>
-          ${entity.type}
+          ${entity.type} -  ${entity.postalCode}  
           <br> 
           <a href='${entity.uri}'>${entity.uri}</a>  
           ${
@@ -47,4 +47,4 @@ function getK(rawStr) {
 const truncate = (input) =>
   input.length > 100 ? `${input.substring(0, 100)}...` : input;
 
-customElements.define("people-vignette", PeopleVignette);
+customElements.define("place-vignette", PlaceVignette);

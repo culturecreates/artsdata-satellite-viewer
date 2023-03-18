@@ -16,28 +16,40 @@
   <body>
     <div class="container">
       <h1>Artsdata.ca Minter</h1>
+      <h4 class="mb-3">Footlight publishing K5 (people/places/orgs) and K23 (events) </h4>
       <form>
-        <div class="mb-3">
-          Graph <input type="text" name="graph" class="form-control" />
-        </div>
-        <div class="mb-3">
-          Class<input type="text" name="class" class="form-control" />
-        </div>
+        <div class="row">
+          <div class="col">
+            <input type="text" name="graph" class="form-control" placeholder="Graph" aria-label="Graph" value="http://kg.artsdata.ca/culture-creates/footlight/toutculture-ca">
+          </div>
+          <div class="col">
+            <select class="form-select" aria-label="Default select example" name="class">
+            
+              <option value="schema:Event">Events</option>
+              <option selected value="schema:Place">Places</option>
+              <option value="schema:Person">People</option>
+              <option value="schema:Organization">Organizations</option>
+            </select>
+          </div>
+          <div class="col">
         <button
-          id="buttonSpinner"
-          class="btn btn-primary visually-hidden"
-          disabled
-        >
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-          ></span>
-          Loading...
-        </button>
-        <button id="buttonReady" type="submit" class="btn btn-primary">
-          Search
-        </button>
+        id="buttonSpinner"
+        class="btn btn-primary visually-hidden"
+        disabled
+      >
+        <span
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        Loading...
+      </button>
+      <button id="buttonReady" type="submit" class="btn btn-primary">
+        Search
+      </button>
+        </div>
+      </div>
+
       </form>
       <hr />
       <h2>

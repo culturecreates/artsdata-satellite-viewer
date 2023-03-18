@@ -1,11 +1,16 @@
-import "./entity-vignette.js";
-import "./people-vignette.js";
+import "./place-vignette.js";
+import "./people-org-vignette.js";
+import "./event-vignette.js";
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
 if (urlParams.get("graph")) {
-  searchMintPotential(urlParams.get("graph"), urlParams.get("classToMint"));
+  searchMintPotential(urlParams.get("graph"), urlParams.get("class"));
+}
+
+function custom_sort(a, b) {
+  return new Date(a.startDate["@value"]).getTime() - new Date(b.startDate["@value"]).getTime();
 }
 
 async function searchMintPotential(graph, classToMint) {
@@ -14,56 +19,57 @@ async function searchMintPotential(graph, classToMint) {
 
   const main = document.querySelector("main");
 
-  const displayQuery = document.querySelector("query");
-  displayQuery.innerHTML = "Results for " + graph + "...";
-
-
   // const api = "https://api.artsdata.ca/query";
   const api = "http://localhost:3003/query";
 
 
+  let sparql, vignette, frame;
+
+  if (classToMint === "schema:Place") {
+    sparql = "mint/places";
+    vignette = "place-vignette";
+    frame="mint/footlight";
+  } else if (classToMint === "schema:Person") {
+    sparql = "mint/people";
+    vignette = "people-org-vignette";
+    frame="mint/footlight";
+  } else if (classToMint === "schema:Organization") {
+    sparql = "mint/organizations";
+    vignette = "people-org-vignette";
+    frame="mint/footlight";
+  } else if (classToMint === "schema:Event") {
+    sparql = "mint/events";
+    vignette = "event-vignette";
+    frame="mint/footlight_event";
+  }
+
   const payload = {
     format: "json",
-    frame: "footlight",
-    sparql: "mint/places",
+    frame: frame,
+    sparql: sparql,
     graph: graph,
   };
   const urlParams = new URLSearchParams(payload);
   const url = `${api}?${urlParams}`;
-
+  console.log(url);
   const res = await fetch(url);
   const json = await res.json();
 
+  if (classToMint == "schema:Event") {
+    console.log("sorting...")
+    json.data = json.data.sort(custom_sort)
+  }
+
+  const displayQuery = document.querySelector("query");
+  displayQuery.innerHTML = json.data.length + " Results for " + classToMint + "<br>in graph " + graph + "...";
+
+
   console.log(json);
   json.data.forEach((entity) => {
-      const el = document.createElement("entity-vignette");
+      const el = document.createElement(vignette);
       el.entity = entity;
       main.appendChild(el);
   });
-
-  main.appendChild(document.createElement("hr"));
-
-  const payload_people = {
-    format: "json",
-    frame: "footlight",
-    sparql: "mint/people",
-    graph: graph,
-  };
-
-  const urlParams_people = new URLSearchParams(payload_people);
-  const url_people = `${api}?${urlParams_people}`;
-
-  const res_people = await fetch(url_people);
-  const json_people = await res_people.json();
-
-  console.log(json_people);
-
-  json_people.data.forEach((entity) => {
-      const el = document.createElement("people-vignette");
-      el.entity = entity;
-      main.appendChild(el);
-  });
-
 
   document.getElementById("buttonSpinner").classList.add("visually-hidden");
   document.getElementById("buttonReady").classList.remove("visually-hidden");

@@ -1,13 +1,13 @@
-class EntityVignette extends HTMLElement {
+class PeopleOrgVignette extends HTMLElement {
   set entity(entity) {
     this.innerHTML = `
       <div  class="list-group">
         <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
           <div class="ms-2 me-auto">
             <div class="fw-bold">${encodeHTMLEntities(
-              truncate(entity.name.fr || entity.name.en)
+              truncate(entity.name.fr || entity.name.en || entity.name["@none"] + " (missing lang)" || "")
             )}</div>
-          ${entity.type} -  ${entity.postalCode}  
+          ${entity.type}
           <br> 
           <a href='${entity.uri}'>${entity.uri}</a>  
           ${
@@ -16,7 +16,12 @@ class EntityVignette extends HTMLElement {
               : ""
           }
           ${
-            !entity.missing && !entity.sameAs
+            entity.partOf
+              ? ` <br>  Graphs: ${JSON.stringify(entity.partOf)}`
+              : ""
+          }
+          ${
+             !entity.sameAs
               ? `        <br> <form method="post" action="http://api.artsdata.ca/mint" class="inline">
           <input type="hidden" name="classToMint" value="schema:${entity.type}">
           <input type="hidden" name="externalUri" value="${entity.uri}">
@@ -47,4 +52,4 @@ function getK(rawStr) {
 const truncate = (input) =>
   input.length > 100 ? `${input.substring(0, 100)}...` : input;
 
-customElements.define("entity-vignette", EntityVignette);
+customElements.define("people-org-vignette", PeopleOrgVignette);
