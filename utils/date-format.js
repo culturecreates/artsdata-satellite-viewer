@@ -22,11 +22,14 @@ export const DateFormat = (event) => {
   });
 
   var html = "";
-  if (event.length > 10) {
-    html += dateTimeFormatter.format(new Date(event));
-  } else {
-    html += dateFormatter.format(new Date(event));
+  if (event) {
+    if (event.length > 10) {
+      html += dateTimeFormatter.format(new Date(event));
+    } else {
+      html += dateFormatter.format(new Date(event));
+    }
   }
+ 
    
   return html;
 };

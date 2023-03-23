@@ -16,7 +16,12 @@ class PlaceVignette extends HTMLElement {
               : ""
           }
           ${
-            !entity.missing && !entity.sameAs
+            entity.partOf
+              ? ` <br>  Graphs: ${JSON.stringify(entity.partOf)}`
+              : ""
+          }
+          ${
+            !entity.sameAs
               ? `        <br> <form method="post" action="http://api.artsdata.ca/mint" class="inline">
           <input type="hidden" name="classToMint" value="schema:${entity.type}">
           <input type="hidden" name="externalUri" value="${entity.uri}">

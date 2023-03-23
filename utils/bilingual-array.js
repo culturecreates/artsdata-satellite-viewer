@@ -3,7 +3,11 @@ export const DisplayList = (list) => {
   if (Array.isArray(list)) {
     list.forEach((item) => {
       if (item.name != undefined) {
-      html += `${item.name.fr || item.name.en || ""} (${item.uri.split('/').at(-1)}) <br>  `;
+        let id;
+        if (item.uri) {
+          id = ` (${item.uri.split('/').at(-1)}) ` 
+        }
+      html += `${item.name.fr || item.name.en || ""}${id}<br>`;
     }
     });
   

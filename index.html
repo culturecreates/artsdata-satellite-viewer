@@ -16,24 +16,24 @@
   <body>
     <div class="container">
       <h1>Artsdata.ca Minter</h1>
-      <h4 class="mb-3">Footlight publishing K5 (people/places/orgs) and K23 (events) </h4>
+      <h4 class="mb-3">Footlight Authority </h4>
       <form>
         <div class="row">
           <div class="col">
-            <input type="text" name="graph" class="form-control" placeholder="Graph" aria-label="Graph" value="http://kg.artsdata.ca/culture-creates/footlight/toutculture-ca">
+            <input id="graphUri" type="text" name="graph" class="form-control" placeholder="Graph" aria-label="Graph" value="http://kg.artsdata.ca/culture-creates/footlight/toutculture-ca">
           </div>
           <div class="col">
-            <select class="form-select" aria-label="Default select example" name="class">
-            
-              <option value="schema:Event">Events</option>
-              <option selected value="schema:Place">Places</option>
-              <option value="schema:Person">People</option>
-              <option value="schema:Organization">Organizations</option>
+            <select id="class" class="form-select" aria-label="Default select example" name="class">
+              <option value="schema:Event">Event</option>
+              <option value="schema:Place">Place</option>
+              <option value="schema:Person">Person</option>
+              <option value="schema:Organization">Organization</option>
             </select>
           </div>
           <div class="col">
         <button
         id="buttonSpinner"
+        type="submit"
         class="btn btn-primary visually-hidden"
         disabled
       >

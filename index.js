@@ -1,11 +1,26 @@
 import "./place-vignette.js";
 import "./people-org-vignette.js";
 import "./event-vignette.js";
+import { QueryUrl } from "./Api.js";
 
 const queryString = window.location.search;
+
 const urlParams = new URLSearchParams(queryString);
 
+let i = 0;
+if (urlParams.get("class") == "schema:Event") {
+  i = 0;
+} else if(urlParams.get("class") == "schema:Place") {
+  i = 1;
+} else if(urlParams.get("class") == "schema:Person") {
+  i = 2;
+} else if(urlParams.get("class") == "schema:Organization") {
+  i = 3;
+}
+document.getElementById('class').selectedIndex  = i
+
 if (urlParams.get("graph")) {
+  document.getElementById('graphUri').value = urlParams.get("graph");
   searchMintPotential(urlParams.get("graph"), urlParams.get("class"));
 }
 
@@ -19,8 +34,6 @@ async function searchMintPotential(graph, classToMint) {
 
   const main = document.querySelector("main");
 
-  // const api = "https://api.artsdata.ca/query";
-  const api = "http://localhost:3003/query";
 
 
   let sparql, vignette, frame;
@@ -48,9 +61,10 @@ async function searchMintPotential(graph, classToMint) {
     frame: frame,
     sparql: sparql,
     graph: graph,
+    limit: 100,
   };
   const urlParams = new URLSearchParams(payload);
-  const url = `${api}?${urlParams}`;
+  const url = `${QueryUrl}?${urlParams}`;
   console.log(url);
   const res = await fetch(url);
   const json = await res.json();
@@ -61,7 +75,7 @@ async function searchMintPotential(graph, classToMint) {
   }
 
   const displayQuery = document.querySelector("query");
-  displayQuery.innerHTML = json.data.length + " Results for " + classToMint + "<br>in graph " + graph + "...";
+  displayQuery.innerHTML = json.data.length + " Results" ;
 
 
   console.log(json);

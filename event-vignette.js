@@ -1,5 +1,6 @@
 import { DisplayList } from "./utils/bilingual-array.js";
 import { DateFormat } from "./utils/date-format.js";
+import { LinkUrl, MintUrl } from  "./api.js";
 
 class EventVignette extends HTMLElement {
   set entity(entity) {
@@ -15,11 +16,11 @@ class EventVignette extends HTMLElement {
             <br>
             ${DisplayList(entity.location)} 
           
-            ${DisplaySimilarEvents(entity.missing, entity.uri)}
+            ${DisplaySimilarEvents(entity.missing, entity?.sameAs?.[0].uri, entity.type)}
         
             ${
              !entity.sameAs
-              ? `        <br> <form method="post" action="http://api.artsdata.ca/mint" class="inline">
+              ? ` <br> <form method="post" action="${MintUrl}" class="inline">
               <input type="hidden" name="classToMint" value="schema:${entity.type}">
               <input type="hidden" name="externalUri" value="${entity.uri}">
               <input type="hidden" name="publisher" value="https://graph.culturecreates.com/id/footlight">
@@ -27,7 +28,11 @@ class EventVignette extends HTMLElement {
               </form> `
               : ""
             }
-         
+            ${
+              entity.partOf
+                ? ` <br>  Graphs: ${JSON.stringify(entity.partOf)}`
+                : ""
+            }
           </div>
           <span class="badge bg-secondary rounded-pill">${
             entity?.sameAs?.[0].uri[0] ? getK(entity.sameAs?.[0].uri) : ""
@@ -52,7 +57,7 @@ function getK(rawStr) {
 
 
 
-let DisplaySimilarEvents = (links, externalUri) => {
+let DisplaySimilarEvents = (links, adUri, classToLink) => {
   let html = '';
   if (links) {
     if ( !Array.isArray(links) ) {
@@ -61,14 +66,18 @@ let DisplaySimilarEvents = (links, externalUri) => {
     
       html += '<br>Matching date and place: <ul>';
       links.forEach(element => {
-        html += `<li> 
-        <form method="post" action="http://api.artsdata.ca/mint" class="inline">
-            <input type="hidden" name="externalUri" value="${externalUri}">
-            <input type="hidden" name="linkToUri" value="${element.uri}">
+        html += `<li>`
+        if (adUri && element.uri.split("/").at(-1)[0] != "K" &&  element.sameAs == null ) {
+          html += `<form method="post" action="${LinkUrl}" class="inline">
+            <input type="hidden" name="classToLink" value="schema:${classToLink}">
+            <input type="hidden" name="externalUri" value="${element.uri}">
+            <input type="hidden" name="adUri" value="${adUri}">
             <input type="hidden" name="publisher" value="https://graph.culturecreates.com/id/footlight">
-            <button type="submit" class="btn btn-info">Link ${element.uri.split("/").at(-1)}</button>
-         </form> 
-        ${JSON.stringify(element)}` ;
+            <button type="submit" class="btn btn-info">Link ${element.uri.split("/").at(-1)} to ${adUri} </button>
+          </form>`
+        }
+       
+        html += JSON.stringify(element) ;
       });
       html += '</ul>';
   }
