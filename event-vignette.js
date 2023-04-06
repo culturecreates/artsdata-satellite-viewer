@@ -67,7 +67,7 @@ let DisplaySimilarEvents = (links, adUri, classToLink) => {
       html += '<br>Matching date and place: <ul>';
       links.forEach(element => {
         html += `<li>`
-        if (adUri && element.uri.split("/").at(-1)[0] != "K" &&  element.sameAs == null ) {
+        if (adUri && element.uri &&  element.uri.split("/").at(-1)[0] != "K" &&  element.sameAs == null ) {
           html += `<form method="post" action="${LinkUrl}" class="inline">
             <input type="hidden" name="classToLink" value="schema:${classToLink}">
             <input type="hidden" name="externalUri" value="${element.uri}">
