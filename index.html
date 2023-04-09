@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Artsdata Minter</title>
+    <title>Artsdata Viewer</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="style.css" rel="stylesheet" />
@@ -15,48 +15,13 @@
 
   <body>
     <div class="container">
-      <h1>Artsdata.ca Minter</h1>
-      <h4 class="mb-3">Footlight Authority </h4>
-      <form>
-        <div class="row">
-          <div class="col">
-            <input id="graphUri" type="text" name="graph" class="form-control" placeholder="Graph" aria-label="Graph" value="http://kg.artsdata.ca/culture-creates/footlight/toutculture-ca">
-          </div>
-          <div class="col">
-            <select id="class" class="form-select" aria-label="Default select example" name="class">
-              <option value="schema:Event">Event</option>
-              <option value="schema:Place">Place</option>
-              <option value="schema:Person">Person</option>
-              <option value="schema:Organization">Organization</option>
-            </select>
-          </div>
-          <div class="col">
-        <button
-        id="buttonSpinner"
-        type="submit"
-        class="btn btn-primary visually-hidden"
-        disabled
-        >
-        <span
-          class="spinner-border spinner-border-sm"
-          role="status"
-          aria-hidden="true"
-        ></span>
-        Loading...
-      </button>
-      <button id="buttonReady" type="submit" class="btn btn-primary">
-        Search
-      </button>
-        </div>
-      </div>
-
-      </form>
-      <hr />
-      <h2>
-        <query></query>
-      </h2>
+      <h1 id="adid">Entity Name</h1>
+      <div>Disambuguating description </div>
+      <div class="alternate-name">Another name | Also known as</div> 
+  
       <main></main>
     </div>
+      
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

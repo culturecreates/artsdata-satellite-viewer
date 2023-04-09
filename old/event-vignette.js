@@ -1,6 +1,6 @@
-import { DisplayList } from "./utils/bilingual-array.js";
-import { DateFormat } from "./utils/date-format.js";
-import { LinkUrl, MintUrl } from  "./api.js";
+import { DisplayList } from "../utils/bilingual-array.js";
+import { DateFormat } from "../utils/date-format.js";
+import { LinkUrl, MintUrl } from  "../api.js";
 
 class EventVignette extends HTMLElement {
   set entity(entity) {
