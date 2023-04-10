@@ -9,11 +9,14 @@ a {
   border-color: rgb(191, 190, 190);
   border-width: 1px;
   border-style: solid;
-  margin: 5px;
+  margin: 5px 0px;
 }
 
 .statement-predicate {
-  width: 200px;
+  width: 20%;
+  word-break:break-all;
+  flex-shrink: 0;
+  overflow: auto;
   margin: 20px;
 }
 
@@ -64,3 +67,4 @@ a {
 .more-statementss {
   background-color: rgb(250, 249, 249);
 }
+

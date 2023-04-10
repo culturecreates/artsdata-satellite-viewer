@@ -1,4 +1,4 @@
-import { referenceHtml } from "./reference.js";
+
 
 export const objectHtml = (entity) => {
   let html = "";
@@ -9,13 +9,11 @@ export const objectHtml = (entity) => {
     }
 
     keys.forEach((key, index) => {
-      if (key === "prov:wasDerivedFrom") {
-        html += referenceHtml(entity[key]);
-      } else {
+      
         html += entity[key];
         if (index < keys.length - 1) { html += ": "; } 
-      }
-    });
+      });
+ 
     if (keys.length > 0) {
       html += `</div>`;
     }

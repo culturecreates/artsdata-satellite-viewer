@@ -1,5 +1,5 @@
 import {objectHtml} from "./object.js";
-import {objectReferenceHtml} from "./objectReference.js";
+import {objectStarHtml} from "./objectStar.js";
 
 class Statement extends HTMLElement {
   set entity(entity) {
@@ -7,7 +7,7 @@ class Statement extends HTMLElement {
     const objects = entity[1]
     if (Array.isArray(objects)) {
       for (let i = 0; i < objects.length; i += 2) {
-        objHtml += objectReferenceHtml([objects[i],objects[i + 1]])
+        objHtml += objectStarHtml([objects[i],objects[i + 1]])
       }
     } else {
         objHtml += objectHtml(objects);

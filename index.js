@@ -1,6 +1,7 @@
 
 import { QueryUrl } from "./api.js";
 import "./statement.js";
+import "./rdf-link.js";
 
 const queryString = window.location.search;
 
