@@ -9,7 +9,6 @@ export const objectHtml = (entity) => {
     }
 
     keys.forEach((key, index) => {
-      
         html += entity[key];
         if (index < keys.length - 1) { html += ": "; } 
       });
@@ -22,7 +21,7 @@ export const objectHtml = (entity) => {
       html += `
       <div class="statement-object">
         ${entity}
-        </div>
+      </div>
     `;
     }
   }

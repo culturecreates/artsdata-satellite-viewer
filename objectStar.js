@@ -7,7 +7,7 @@ export const objectStarHtml = (entityPair) => {
   // object value
 
   let entity = entityPair[0];
-  if (entity.constructor.name === "Object") {
+  if (entity?.constructor?.name === "Object") {
     const keys = Object.keys(entity);
     html += `<span>`
     keys.forEach((key, index) => {
@@ -18,14 +18,14 @@ export const objectStarHtml = (entityPair) => {
     });
     html += `</span>`
   } else {
-    if (entity[0] !== "_") {
+    if (entity?.[0] !== "_") {
       html += `<rdf-link>${entity}</rdf-link>`;
     }
   }
 
   // references or qualifiers
   entity = entityPair[1];
-  if (entity.constructor.name === "Object") {
+  if (entity?.constructor?.name === "Object") {
     const keys = Object.keys(entity);
     keys.forEach((key, index) => {
       if (key === "prov:wasDerivedFrom") {
@@ -46,8 +46,8 @@ export const objectStarHtml = (entityPair) => {
       }
     });
   } else {
-    if (entity[0] !== "_") {
-      html += entity;
+    if (entity?.[0] !== "_") {
+      html += entity || '';
     }
   }
 
