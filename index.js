@@ -10,7 +10,12 @@ const urlParams = new URLSearchParams(queryString);
 
 if (urlParams.get("adid")) {
   document.getElementById('adid').innerHTML = urlParams.get("adid");
+  document.getElementById('aduri').innerHTML = urlParams.get("adid");
+  document.getElementById('aduri').href = `http://kg.artsdata.ca/resource/${urlParams.get("adid")}`;
+
   view(urlParams.get("adid"));
+
+
 }
 
 async function view(adid) {
@@ -42,6 +47,12 @@ async function view(adid) {
       const el = document.createElement("statement-component");
       el.entity =  [key, entity[key]];
       main.appendChild(el);
+    }
+    if (key == 'name') {
+      document.getElementById('adid').innerHTML = entity[key][0]['@value'];
+    }
+    if (key == 'description') {
+      document.getElementById('desc').innerHTML = entity[key][0]['@value'];
     }
       
   });
