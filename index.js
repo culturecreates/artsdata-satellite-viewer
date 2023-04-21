@@ -12,6 +12,7 @@ if (urlParams.get("adid")) {
   document.getElementById('adid').innerHTML = urlParams.get("adid");
   document.getElementById('aduri').innerHTML = urlParams.get("adid");
   document.getElementById('aduri').href = `http://kg.artsdata.ca/resource/${urlParams.get("adid")}`;
+  document.getElementById('aduriapi').href = `http://api.artsdata.ca/resource/${urlParams.get("adid")}`;
 
   view(urlParams.get("adid"));
 
@@ -49,7 +50,7 @@ async function view(adid) {
       main.appendChild(el);
     }
     if (key == 'name') {
-      document.getElementById('adid').innerHTML = entity[key][0]['@value'];
+      document.getElementById('adid').innerHTML = entity[key][0]['@value'] || entity[key][0];
     }
     if (key == 'description') {
       document.getElementById('desc').innerHTML = entity[key][0]['@value'];
