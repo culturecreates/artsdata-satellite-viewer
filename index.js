@@ -2,6 +2,7 @@
 import { QueryUrl } from "./api.js";
 import "./statement.js";
 import "./rdf-link.js";
+import "./dereference-name.js";
 
 const queryString = window.location.search;
 
@@ -58,6 +59,7 @@ async function view(adid) {
     }
       
   });
+
 
  
 }

@@ -11,7 +11,7 @@ export const objectStarHtml = (entityPair) => {
     const keys = Object.keys(entity);
     html += `<span>`
     keys.forEach((key, index) => {
-      html += `<rdf-link>${entity[key]}</rdf-link>`;
+      html += `<dereference-name>${entity[key]}</dereference-name>`;
       if (index < keys.length - 1) {
         html += ": ";
       }
@@ -19,7 +19,7 @@ export const objectStarHtml = (entityPair) => {
     html += `</span>`
   } else {
     if (entity?.[0] !== "_") {
-      html += `<rdf-link>${entity}</rdf-link>`;
+      html += `<dereference-name>${entity}</dereference-name>`;
     }
   }
 

@@ -22,10 +22,10 @@ export const referenceHtml = (entity) => {
 
   if (Array.isArray(entity)) {
     entity.forEach((reference) => {
-      html += `<div class="reference-individual">${reference.id}</div>`;
+      html += `<div class="reference-individual"><rdf-link>${reference.id}</rdf-link></div>`;
     });
   } else {
-    html += `<div class="reference-individual">${entity.id}</div>`;
+    html += `<div class="reference-individual"><rdf-link>${entity.id}</rdf-link></div>`;
   }
   html += ` </div> </div></div> </div>`;
   return html;
