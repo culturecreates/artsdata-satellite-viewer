@@ -5,7 +5,22 @@ class DereferenceName extends HTMLElement {
     async function cc(e) {
       let url = "https://db.artsdata.ca/repositories/artsdata"
       if (e.innerHTML.startsWith('http') ) {
-        let sparql = `construct { <${e.innerHTML}> <http://schema.org/name> ?c ; a ?type ;  <http://schema.org/streetAddress> ?street  ;  <http://schema.org/addressLocality> ?locality ;  <http://schema.org/postalCode> ?postalCode . }  where { graph ?g {  <${e.innerHTML}> a ?type  OPTIONAL { <${e.innerHTML}> <http://schema.org/name> ?c . } OPTIONAL { <${e.innerHTML}>   <http://schema.org/streetAddress> ?street ; <http://schema.org/addressLocality> ?locality ;  <http://schema.org/postalCode> ?postalCode . }  }} `
+        let sparql = `construct { 
+          <${e.innerHTML}> <http://schema.org/name> ?c ; 
+          a ?type ; 
+          <http://schema.org/streetAddress> ?street  ;  
+          <http://schema.org/addressLocality> ?locality ;  
+          <http://schema.org/postalCode> ?postalCode . 
+        } 
+        where { 
+          OPTIONAL { <${e.innerHTML}> <http://www.w3.org/2000/01/rdf-schema#label> ?c . } 
+          graph ?g { 
+            <${e.innerHTML}> a ?type 
+            OPTIONAL { <${e.innerHTML}>   <http://schema.org/streetAddress> ?street ; 
+              <http://schema.org/addressLocality> ?locality ; 
+              <http://schema.org/postalCode> ?postalCode . }
+          }
+        } `
        
           const res = await fetch(url, {
             method: "POST",
